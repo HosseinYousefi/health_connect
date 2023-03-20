@@ -1,0 +1,30 @@
+# Generating from gradle dependencies
+android_sdk_config:
+  add_gradle_deps: true
+
+summarizer:
+  # Instead of Java source code, we want to generate from classes
+  backend: asm
+
+suspend_fun_to_async: true
+
+output:
+  c:
+    library_name: health_connect
+    path: src/health_connect/
+  dart:
+    path: lib/health_connect.dart
+    structure: single_file
+
+classes:
+  - 'androidx.health.connect.client.HealthConnectClient'
+  - 'android.content.Context'
+  - 'androidx.health.connect.client.request.AggregateRequest'
+  - 'androidx.health.connect.client.time.TimeRangeFilter'
+  - 'androidx.health.connect.client.aggregate.AggregationResult'
+  - 'androidx.health.connect.client.aggregate.AggregateMetric'
+  - 'androidx.health.connect.client.records.StepsRecord'
+  - 'java.time.Instant'
+  - 'java.lang.Long'
+  - 'java.util.Set'
+
