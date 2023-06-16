@@ -5,12 +5,12 @@
 #include "jni.h"
 
 thread_local JNIEnv* jniEnv;
-JniContext jni;
+JniContext* jni;
 
-JniContext (*context_getter)(void);
+JniContext* (*context_getter)(void);
 JNIEnv* (*env_getter)(void);
 
-void setJniGetters(JniContext (*cg)(void), JNIEnv* (*eg)(void)) {
+void setJniGetters(JniContext* (*cg)(void), JNIEnv* (*eg)(void)) {
   context_getter = cg;
   env_getter = eg;
 }
@@ -22,20 +22,19 @@ jmethodID _m_HealthConnectClient__getPermissionController = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__getPermissionController(jobject self_) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient,
               &_m_HealthConnectClient__getPermissionController,
               "getPermissionController",
               "()Landroidx/health/connect/client/PermissionController;");
   if (_m_HealthConnectClient__getPermissionController == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__getPermissionController);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__insertRecords = NULL;
@@ -44,20 +43,19 @@ JniResult HealthConnectClient__insertRecords(jobject self_,
                                              jobject list,
                                              jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__insertRecords,
       "insertRecords",
       "(Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__insertRecords == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__insertRecords, list, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__updateRecords = NULL;
@@ -66,20 +64,19 @@ JniResult HealthConnectClient__updateRecords(jobject self_,
                                              jobject list,
                                              jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__updateRecords,
       "updateRecords",
       "(Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__updateRecords == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__updateRecords, list, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__deleteRecords = NULL;
@@ -90,21 +87,20 @@ JniResult HealthConnectClient__deleteRecords(jobject self_,
                                              jobject list1,
                                              jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient, &_m_HealthConnectClient__deleteRecords,
               "deleteRecords",
               "(Lkotlin/reflect/KClass;Ljava/util/List;Ljava/util/List;Lkotlin/"
               "coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__deleteRecords == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__deleteRecords, kClass, list, list1,
       continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__deleteRecords1 = NULL;
@@ -114,22 +110,21 @@ JniResult HealthConnectClient__deleteRecords1(jobject self_,
                                               jobject timeRangeFilter,
                                               jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__deleteRecords1,
       "deleteRecords",
       "(Lkotlin/reflect/KClass;Landroidx/health/connect/client/time/"
       "TimeRangeFilter;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__deleteRecords1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__deleteRecords1, kClass,
       timeRangeFilter, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__readRecord = NULL;
@@ -139,21 +134,20 @@ JniResult HealthConnectClient__readRecord(jobject self_,
                                           jobject string,
                                           jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient, &_m_HealthConnectClient__readRecord,
               "readRecord",
               "(Lkotlin/reflect/KClass;Ljava/lang/String;Lkotlin/coroutines/"
               "Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__readRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__readRecord, kClass, string,
       continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__readRecords = NULL;
@@ -162,22 +156,21 @@ JniResult HealthConnectClient__readRecords(jobject self_,
                                            jobject readRecordsRequest,
                                            jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__readRecords,
       "readRecords",
       "(Landroidx/health/connect/client/request/ReadRecordsRequest;Lkotlin/"
       "coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__readRecords == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__readRecords, readRecordsRequest,
       continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__aggregate = NULL;
@@ -186,21 +179,20 @@ JniResult HealthConnectClient__aggregate(jobject self_,
                                          jobject aggregateRequest,
                                          jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__aggregate, "aggregate",
       "(Landroidx/health/connect/client/request/AggregateRequest;Lkotlin/"
       "coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__aggregate == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__aggregate, aggregateRequest,
       continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__aggregateGroupByDuration = NULL;
@@ -210,10 +202,10 @@ JniResult HealthConnectClient__aggregateGroupByDuration(
     jobject aggregateGroupByDurationRequest,
     jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient,
               &_m_HealthConnectClient__aggregateGroupByDuration,
               "aggregateGroupByDuration",
@@ -221,12 +213,11 @@ JniResult HealthConnectClient__aggregateGroupByDuration(
               "AggregateGroupByDurationRequest;Lkotlin/coroutines/"
               "Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__aggregateGroupByDuration == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__aggregateGroupByDuration,
       aggregateGroupByDurationRequest, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__aggregateGroupByPeriod = NULL;
@@ -236,10 +227,10 @@ JniResult HealthConnectClient__aggregateGroupByPeriod(
     jobject aggregateGroupByPeriodRequest,
     jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient,
               &_m_HealthConnectClient__aggregateGroupByPeriod,
               "aggregateGroupByPeriod",
@@ -247,12 +238,11 @@ JniResult HealthConnectClient__aggregateGroupByPeriod(
               "AggregateGroupByPeriodRequest;Lkotlin/coroutines/"
               "Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__aggregateGroupByPeriod == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__aggregateGroupByPeriod,
       aggregateGroupByPeriodRequest, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__getChangesToken = NULL;
@@ -261,22 +251,21 @@ JniResult HealthConnectClient__getChangesToken(jobject self_,
                                                jobject changesTokenRequest,
                                                jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__getChangesToken,
       "getChangesToken",
       "(Landroidx/health/connect/client/request/ChangesTokenRequest;Lkotlin/"
       "coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__getChangesToken == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__getChangesToken,
       changesTokenRequest, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__registerForDataNotifications = NULL;
@@ -287,22 +276,21 @@ JniResult HealthConnectClient__registerForDataNotifications(
     jobject iterable,
     jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_HealthConnectClient,
               &_m_HealthConnectClient__registerForDataNotifications,
               "registerForDataNotifications",
               "(Ljava/lang/String;Ljava/lang/Iterable;Lkotlin/coroutines/"
               "Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__registerForDataNotifications == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__registerForDataNotifications,
       string, iterable, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__unregisterFromDataNotifications = NULL;
@@ -312,22 +300,21 @@ JniResult HealthConnectClient__unregisterFromDataNotifications(
     jobject string,
     jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient,
       &_m_HealthConnectClient__unregisterFromDataNotifications,
       "unregisterFromDataNotifications",
       "(Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__unregisterFromDataNotifications == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__unregisterFromDataNotifications,
       string, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__getChanges = NULL;
@@ -336,76 +323,74 @@ JniResult HealthConnectClient__getChanges(jobject self_,
                                           jobject string,
                                           jobject continuation) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__getChanges, "getChanges",
       "(Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;");
   if (_m_HealthConnectClient__getChanges == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_HealthConnectClient__getChanges, string, continuation);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__getHealthConnectSettingsAction = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__getHealthConnectSettingsAction() {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__getHealthConnectSettingsAction,
                      "getHealthConnectSettingsAction", "()Ljava/lang/String;");
   if (_m_HealthConnectClient__getHealthConnectSettingsAction == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_HealthConnectClient,
       _m_HealthConnectClient__getHealthConnectSettingsAction);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__sdkStatus = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__sdkStatus(jobject context, jobject string) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient, &_m_HealthConnectClient__sdkStatus,
                      "sdkStatus",
                      "(Landroid/content/Context;Ljava/lang/String;)I");
   if (_m_HealthConnectClient__sdkStatus == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallStaticIntMethod(
       jniEnv, _c_HealthConnectClient, _m_HealthConnectClient__sdkStatus,
       context, string);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_HealthConnectClient__isApiSupported = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__isApiSupported() {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__isApiSupported, "isApiSupported",
                      "()Z");
   if (_m_HealthConnectClient__isApiSupported == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallStaticBooleanMethod(
       jniEnv, _c_HealthConnectClient, _m_HealthConnectClient__isApiSupported);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_HealthConnectClient__isProviderAvailable = NULL;
@@ -413,115 +398,113 @@ FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__isProviderAvailable(jobject context,
                                                    jobject string) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(
       _c_HealthConnectClient, &_m_HealthConnectClient__isProviderAvailable,
       "isProviderAvailable", "(Landroid/content/Context;Ljava/lang/String;)Z");
   if (_m_HealthConnectClient__isProviderAvailable == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallStaticBooleanMethod(
       jniEnv, _c_HealthConnectClient,
       _m_HealthConnectClient__isProviderAvailable, context, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_HealthConnectClient__getOrCreate = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__getOrCreate(jobject context, jobject string) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__getOrCreate, "getOrCreate",
                      "(Landroid/content/Context;Ljava/lang/String;)Landroidx/"
                      "health/connect/client/HealthConnectClient;");
   if (_m_HealthConnectClient__getOrCreate == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_HealthConnectClient, _m_HealthConnectClient__getOrCreate,
       context, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_HealthConnectClient__sdkStatus1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__sdkStatus1(jobject context) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__sdkStatus1, "sdkStatus",
                      "(Landroid/content/Context;)I");
   if (_m_HealthConnectClient__sdkStatus1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallStaticIntMethod(
       jniEnv, _c_HealthConnectClient, _m_HealthConnectClient__sdkStatus1,
       context);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_HealthConnectClient__isProviderAvailable1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__isProviderAvailable1(jobject context) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__isProviderAvailable1,
                      "isProviderAvailable", "(Landroid/content/Context;)Z");
   if (_m_HealthConnectClient__isProviderAvailable1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallStaticBooleanMethod(
       jniEnv, _c_HealthConnectClient,
       _m_HealthConnectClient__isProviderAvailable1, context);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_HealthConnectClient__getOrCreate1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult HealthConnectClient__getOrCreate1(jobject context) {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_HealthConnectClient,
                      &_m_HealthConnectClient__getOrCreate1, "getOrCreate",
                      "(Landroid/content/Context;)Landroidx/health/connect/"
                      "client/HealthConnectClient;");
   if (_m_HealthConnectClient__getOrCreate1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_HealthConnectClient, _m_HealthConnectClient__getOrCreate1,
       context);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_HealthConnectClient__Companion = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_HealthConnectClient__Companion() {
   load_env();
-  load_class_gr(&_c_HealthConnectClient,
-                "androidx/health/connect/client/HealthConnectClient");
+  load_class_global_ref(&_c_HealthConnectClient,
+                        "androidx/health/connect/client/HealthConnectClient");
   if (_c_HealthConnectClient == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(
       _c_HealthConnectClient, &_f_HealthConnectClient__Companion, "Companion",
       "Landroidx/health/connect/client/HealthConnectClient$Companion;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_HealthConnectClient, _f_HealthConnectClient__Companion));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_HealthConnectClient, _f_HealthConnectClient__Companion);
+  return to_global_ref_result(_result);
 }
 
 // android.content.Context
@@ -531,134 +514,126 @@ jmethodID _m_Context__ctor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__ctor() {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__ctor, "<init>", "()V");
   if (_m_Context__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Context, _m_Context__ctor);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getAssets = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getAssets(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getAssets, "getAssets",
               "()Landroid/content/res/AssetManager;");
   if (_m_Context__getAssets == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getAssets);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getResources = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getResources(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getResources, "getResources",
               "()Landroid/content/res/Resources;");
   if (_m_Context__getResources == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getResources);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getPackageManager = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getPackageManager(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getPackageManager, "getPackageManager",
               "()Landroid/content/pm/PackageManager;");
   if (_m_Context__getPackageManager == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getPackageManager);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getContentResolver = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getContentResolver(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getContentResolver, "getContentResolver",
               "()Landroid/content/ContentResolver;");
   if (_m_Context__getContentResolver == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_Context__getContentResolver);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getMainLooper = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getMainLooper(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getMainLooper, "getMainLooper",
               "()Landroid/os/Looper;");
   if (_m_Context__getMainLooper == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getMainLooper);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getMainExecutor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getMainExecutor(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getMainExecutor, "getMainExecutor",
               "()Ljava/util/concurrent/Executor;");
   if (_m_Context__getMainExecutor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getMainExecutor);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getApplicationContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getApplicationContext(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getApplicationContext,
               "getApplicationContext", "()Landroid/content/Context;");
   if (_m_Context__getApplicationContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getApplicationContext);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__registerComponentCallbacks = NULL;
@@ -666,18 +641,18 @@ FFI_PLUGIN_EXPORT
 JniResult Context__registerComponentCallbacks(jobject self_,
                                               jobject componentCallbacks) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__registerComponentCallbacks,
               "registerComponentCallbacks",
               "(Landroid/content/ComponentCallbacks;)V");
   if (_m_Context__registerComponentCallbacks == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__registerComponentCallbacks,
                             componentCallbacks);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__unregisterComponentCallbacks = NULL;
@@ -685,166 +660,159 @@ FFI_PLUGIN_EXPORT
 JniResult Context__unregisterComponentCallbacks(jobject self_,
                                                 jobject componentCallbacks) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__unregisterComponentCallbacks,
               "unregisterComponentCallbacks",
               "(Landroid/content/ComponentCallbacks;)V");
   if (_m_Context__unregisterComponentCallbacks == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__unregisterComponentCallbacks,
                             componentCallbacks);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getText = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getText(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getText, "getText",
               "(I)Ljava/lang/CharSequence;");
   if (_m_Context__getText == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getText, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getString = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getString(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getString, "getString",
               "(I)Ljava/lang/String;");
   if (_m_Context__getString == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getString, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getString1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getString1(jobject self_, int32_t i, jobject objects) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getString1, "getString",
               "(I[Ljava/lang/Object;)Ljava/lang/String;");
   if (_m_Context__getString1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getString1, i, objects);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getColor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getColor(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getColor, "getColor", "(I)I");
   if (_m_Context__getColor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Context__getColor, i);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getDrawable = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getDrawable(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getDrawable, "getDrawable",
               "(I)Landroid/graphics/drawable/Drawable;");
   if (_m_Context__getDrawable == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getDrawable, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getColorStateList = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getColorStateList(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getColorStateList, "getColorStateList",
               "(I)Landroid/content/res/ColorStateList;");
   if (_m_Context__getColorStateList == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getColorStateList, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__setTheme = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__setTheme(jobject self_, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__setTheme, "setTheme", "(I)V");
   if (_m_Context__setTheme == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__setTheme, i);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getTheme = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getTheme(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getTheme, "getTheme",
               "()Landroid/content/res/Resources$Theme;");
   if (_m_Context__getTheme == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getTheme);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__obtainStyledAttributes = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__obtainStyledAttributes(jobject self_, jobject is) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__obtainStyledAttributes,
               "obtainStyledAttributes", "([I)Landroid/content/res/TypedArray;");
   if (_m_Context__obtainStyledAttributes == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__obtainStyledAttributes, is);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__obtainStyledAttributes1 = NULL;
@@ -853,18 +821,17 @@ JniResult Context__obtainStyledAttributes1(jobject self_,
                                            int32_t i,
                                            jobject is) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__obtainStyledAttributes1,
               "obtainStyledAttributes",
               "(I[I)Landroid/content/res/TypedArray;");
   if (_m_Context__obtainStyledAttributes1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__obtainStyledAttributes1, i, is);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__obtainStyledAttributes2 = NULL;
@@ -873,19 +840,18 @@ JniResult Context__obtainStyledAttributes2(jobject self_,
                                            jobject attributeSet,
                                            jobject is) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__obtainStyledAttributes2,
       "obtainStyledAttributes",
       "(Landroid/util/AttributeSet;[I)Landroid/content/res/TypedArray;");
   if (_m_Context__obtainStyledAttributes2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__obtainStyledAttributes2, attributeSet, is);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__obtainStyledAttributes3 = NULL;
@@ -896,173 +862,163 @@ JniResult Context__obtainStyledAttributes3(jobject self_,
                                            int32_t i,
                                            int32_t i1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__obtainStyledAttributes3,
       "obtainStyledAttributes",
       "(Landroid/util/AttributeSet;[III)Landroid/content/res/TypedArray;");
   if (_m_Context__obtainStyledAttributes3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__obtainStyledAttributes3, attributeSet, is, i,
       i1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getClassLoader = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getClassLoader(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getClassLoader, "getClassLoader",
               "()Ljava/lang/ClassLoader;");
   if (_m_Context__getClassLoader == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getClassLoader);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getPackageName = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getPackageName(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getPackageName, "getPackageName",
               "()Ljava/lang/String;");
   if (_m_Context__getPackageName == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getPackageName);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getOpPackageName = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getOpPackageName(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getOpPackageName, "getOpPackageName",
               "()Ljava/lang/String;");
   if (_m_Context__getOpPackageName == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getOpPackageName);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getAttributionTag = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getAttributionTag(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getAttributionTag, "getAttributionTag",
               "()Ljava/lang/String;");
   if (_m_Context__getAttributionTag == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getAttributionTag);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getAttributionSource = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getAttributionSource(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getAttributionSource,
               "getAttributionSource", "()Landroid/content/AttributionSource;");
   if (_m_Context__getAttributionSource == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getAttributionSource);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getParams = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getParams(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getParams, "getParams",
               "()Landroid/content/ContextParams;");
   if (_m_Context__getParams == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getParams);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getApplicationInfo = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getApplicationInfo(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getApplicationInfo, "getApplicationInfo",
               "()Landroid/content/pm/ApplicationInfo;");
   if (_m_Context__getApplicationInfo == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_Context__getApplicationInfo);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getPackageResourcePath = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getPackageResourcePath(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getPackageResourcePath,
               "getPackageResourcePath", "()Ljava/lang/String;");
   if (_m_Context__getPackageResourcePath == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getPackageResourcePath);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getPackageCodePath = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getPackageCodePath(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getPackageCodePath, "getPackageCodePath",
               "()Ljava/lang/String;");
   if (_m_Context__getPackageCodePath == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_Context__getPackageCodePath);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getSharedPreferences = NULL;
@@ -1071,18 +1027,17 @@ JniResult Context__getSharedPreferences(jobject self_,
                                         jobject string,
                                         int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getSharedPreferences,
               "getSharedPreferences",
               "(Ljava/lang/String;I)Landroid/content/SharedPreferences;");
   if (_m_Context__getSharedPreferences == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getSharedPreferences, string, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__moveSharedPreferencesFrom = NULL;
@@ -1091,338 +1046,321 @@ JniResult Context__moveSharedPreferencesFrom(jobject self_,
                                              jobject context,
                                              jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__moveSharedPreferencesFrom,
               "moveSharedPreferencesFrom",
               "(Landroid/content/Context;Ljava/lang/String;)Z");
   if (_m_Context__moveSharedPreferencesFrom == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__moveSharedPreferencesFrom, context, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__deleteSharedPreferences = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__deleteSharedPreferences(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__deleteSharedPreferences,
               "deleteSharedPreferences", "(Ljava/lang/String;)Z");
   if (_m_Context__deleteSharedPreferences == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__deleteSharedPreferences, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__openFileInput = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__openFileInput(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__openFileInput, "openFileInput",
               "(Ljava/lang/String;)Ljava/io/FileInputStream;");
   if (_m_Context__openFileInput == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__openFileInput, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__openFileOutput = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__openFileOutput(jobject self_, jobject string, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__openFileOutput, "openFileOutput",
               "(Ljava/lang/String;I)Ljava/io/FileOutputStream;");
   if (_m_Context__openFileOutput == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__openFileOutput, string, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__deleteFile = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__deleteFile(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__deleteFile, "deleteFile",
               "(Ljava/lang/String;)Z");
   if (_m_Context__deleteFile == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__deleteFile, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getFileStreamPath = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getFileStreamPath(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getFileStreamPath, "getFileStreamPath",
               "(Ljava/lang/String;)Ljava/io/File;");
   if (_m_Context__getFileStreamPath == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getFileStreamPath, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getDataDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getDataDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getDataDir, "getDataDir",
               "()Ljava/io/File;");
   if (_m_Context__getDataDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getDataDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getFilesDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getFilesDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getFilesDir, "getFilesDir",
               "()Ljava/io/File;");
   if (_m_Context__getFilesDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getFilesDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getNoBackupFilesDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getNoBackupFilesDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getNoBackupFilesDir,
               "getNoBackupFilesDir", "()Ljava/io/File;");
   if (_m_Context__getNoBackupFilesDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getNoBackupFilesDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getExternalFilesDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getExternalFilesDir(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getExternalFilesDir,
               "getExternalFilesDir", "(Ljava/lang/String;)Ljava/io/File;");
   if (_m_Context__getExternalFilesDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getExternalFilesDir, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getExternalFilesDirs = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getExternalFilesDirs(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getExternalFilesDirs,
               "getExternalFilesDirs", "(Ljava/lang/String;)[Ljava/io/File;");
   if (_m_Context__getExternalFilesDirs == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getExternalFilesDirs, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getObbDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getObbDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getObbDir, "getObbDir",
               "()Ljava/io/File;");
   if (_m_Context__getObbDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getObbDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getObbDirs = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getObbDirs(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getObbDirs, "getObbDirs",
               "()[Ljava/io/File;");
   if (_m_Context__getObbDirs == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getObbDirs);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getCacheDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getCacheDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getCacheDir, "getCacheDir",
               "()Ljava/io/File;");
   if (_m_Context__getCacheDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getCacheDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getCodeCacheDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getCodeCacheDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getCodeCacheDir, "getCodeCacheDir",
               "()Ljava/io/File;");
   if (_m_Context__getCodeCacheDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getCodeCacheDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getExternalCacheDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getExternalCacheDir(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getExternalCacheDir,
               "getExternalCacheDir", "()Ljava/io/File;");
   if (_m_Context__getExternalCacheDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getExternalCacheDir);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getExternalCacheDirs = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getExternalCacheDirs(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getExternalCacheDirs,
               "getExternalCacheDirs", "()[Ljava/io/File;");
   if (_m_Context__getExternalCacheDirs == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getExternalCacheDirs);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getExternalMediaDirs = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getExternalMediaDirs(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getExternalMediaDirs,
               "getExternalMediaDirs", "()[Ljava/io/File;");
   if (_m_Context__getExternalMediaDirs == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getExternalMediaDirs);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__fileList = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__fileList(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__fileList, "fileList",
               "()[Ljava/lang/String;");
   if (_m_Context__fileList == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__fileList);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getDir = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getDir(jobject self_, jobject string, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getDir, "getDir",
               "(Ljava/lang/String;I)Ljava/io/File;");
   if (_m_Context__getDir == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getDir, string, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__openOrCreateDatabase = NULL;
@@ -1432,20 +1370,19 @@ JniResult Context__openOrCreateDatabase(jobject self_,
                                         int32_t i,
                                         jobject cursorFactory) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__openOrCreateDatabase, "openOrCreateDatabase",
       "(Ljava/lang/String;ILandroid/database/sqlite/"
       "SQLiteDatabase$CursorFactory;)Landroid/database/sqlite/SQLiteDatabase;");
   if (_m_Context__openOrCreateDatabase == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__openOrCreateDatabase, string, i,
       cursorFactory);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__openOrCreateDatabase1 = NULL;
@@ -1456,21 +1393,20 @@ JniResult Context__openOrCreateDatabase1(jobject self_,
                                          jobject cursorFactory,
                                          jobject databaseErrorHandler) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__openOrCreateDatabase1,
               "openOrCreateDatabase",
               "(Ljava/lang/String;ILandroid/database/sqlite/"
               "SQLiteDatabase$CursorFactory;Landroid/database/"
               "DatabaseErrorHandler;)Landroid/database/sqlite/SQLiteDatabase;");
   if (_m_Context__openOrCreateDatabase1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__openOrCreateDatabase1, string, i,
       cursorFactory, databaseErrorHandler);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__moveDatabaseFrom = NULL;
@@ -1479,192 +1415,188 @@ JniResult Context__moveDatabaseFrom(jobject self_,
                                     jobject context,
                                     jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__moveDatabaseFrom, "moveDatabaseFrom",
               "(Landroid/content/Context;Ljava/lang/String;)Z");
   if (_m_Context__moveDatabaseFrom == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__moveDatabaseFrom, context, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__deleteDatabase = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__deleteDatabase(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__deleteDatabase, "deleteDatabase",
               "(Ljava/lang/String;)Z");
   if (_m_Context__deleteDatabase == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__deleteDatabase, string);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getDatabasePath = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getDatabasePath(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getDatabasePath, "getDatabasePath",
               "(Ljava/lang/String;)Ljava/io/File;");
   if (_m_Context__getDatabasePath == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getDatabasePath, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__databaseList = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__databaseList(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__databaseList, "databaseList",
               "()[Ljava/lang/String;");
   if (_m_Context__databaseList == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__databaseList);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getWallpaper = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getWallpaper(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getWallpaper, "getWallpaper",
               "()Landroid/graphics/drawable/Drawable;");
   if (_m_Context__getWallpaper == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getWallpaper);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__peekWallpaper = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__peekWallpaper(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__peekWallpaper, "peekWallpaper",
               "()Landroid/graphics/drawable/Drawable;");
   if (_m_Context__peekWallpaper == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__peekWallpaper);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getWallpaperDesiredMinimumWidth = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getWallpaperDesiredMinimumWidth(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getWallpaperDesiredMinimumWidth,
               "getWallpaperDesiredMinimumWidth", "()I");
   if (_m_Context__getWallpaperDesiredMinimumWidth == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__getWallpaperDesiredMinimumWidth);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getWallpaperDesiredMinimumHeight = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getWallpaperDesiredMinimumHeight(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getWallpaperDesiredMinimumHeight,
               "getWallpaperDesiredMinimumHeight", "()I");
   if (_m_Context__getWallpaperDesiredMinimumHeight == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__getWallpaperDesiredMinimumHeight);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__setWallpaper = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__setWallpaper(jobject self_, jobject bitmap) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__setWallpaper, "setWallpaper",
               "(Landroid/graphics/Bitmap;)V");
   if (_m_Context__setWallpaper == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__setWallpaper, bitmap);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__setWallpaper1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__setWallpaper1(jobject self_, jobject inputStream) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__setWallpaper1, "setWallpaper",
               "(Ljava/io/InputStream;)V");
   if (_m_Context__setWallpaper1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__setWallpaper1,
                             inputStream);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__clearWallpaper = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__clearWallpaper(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__clearWallpaper, "clearWallpaper", "()V");
   if (_m_Context__clearWallpaper == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__clearWallpaper);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startActivity = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__startActivity(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startActivity, "startActivity",
               "(Landroid/content/Intent;)V");
   if (_m_Context__startActivity == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startActivity, intent);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startActivity1 = NULL;
@@ -1673,32 +1605,32 @@ JniResult Context__startActivity1(jobject self_,
                                   jobject intent,
                                   jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startActivity1, "startActivity",
               "(Landroid/content/Intent;Landroid/os/Bundle;)V");
   if (_m_Context__startActivity1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startActivity1, intent,
                             bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startActivities = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__startActivities(jobject self_, jobject intents) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startActivities, "startActivities",
               "([Landroid/content/Intent;)V");
   if (_m_Context__startActivities == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startActivities,
                             intents);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startActivities1 = NULL;
@@ -1707,16 +1639,16 @@ JniResult Context__startActivities1(jobject self_,
                                     jobject intents,
                                     jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startActivities1, "startActivities",
               "([Landroid/content/Intent;Landroid/os/Bundle;)V");
   if (_m_Context__startActivities1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startActivities1,
                             intents, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startIntentSender = NULL;
@@ -1728,16 +1660,16 @@ JniResult Context__startIntentSender(jobject self_,
                                      int32_t i1,
                                      int32_t i2) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startIntentSender, "startIntentSender",
               "(Landroid/content/IntentSender;Landroid/content/Intent;III)V");
   if (_m_Context__startIntentSender == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startIntentSender,
                             intentSender, intent, i, i1, i2);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startIntentSender1 = NULL;
@@ -1750,32 +1682,32 @@ JniResult Context__startIntentSender1(jobject self_,
                                       int32_t i2,
                                       jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startIntentSender1, "startIntentSender",
               "(Landroid/content/IntentSender;Landroid/content/"
               "Intent;IIILandroid/os/Bundle;)V");
   if (_m_Context__startIntentSender1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__startIntentSender1,
                             intentSender, intent, i, i1, i2, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendBroadcast = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__sendBroadcast(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendBroadcast, "sendBroadcast",
               "(Landroid/content/Intent;)V");
   if (_m_Context__sendBroadcast == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendBroadcast, intent);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendBroadcast1 = NULL;
@@ -1784,16 +1716,16 @@ JniResult Context__sendBroadcast1(jobject self_,
                                   jobject intent,
                                   jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendBroadcast1, "sendBroadcast",
               "(Landroid/content/Intent;Ljava/lang/String;)V");
   if (_m_Context__sendBroadcast1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendBroadcast1, intent,
                             string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendBroadcastWithMultiplePermissions = NULL;
@@ -1802,18 +1734,18 @@ JniResult Context__sendBroadcastWithMultiplePermissions(jobject self_,
                                                         jobject intent,
                                                         jobject strings) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendBroadcastWithMultiplePermissions,
               "sendBroadcastWithMultiplePermissions",
               "(Landroid/content/Intent;[Ljava/lang/String;)V");
   if (_m_Context__sendBroadcastWithMultiplePermissions == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__sendBroadcastWithMultiplePermissions,
                             intent, strings);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendOrderedBroadcast = NULL;
@@ -1822,17 +1754,17 @@ JniResult Context__sendOrderedBroadcast(jobject self_,
                                         jobject intent,
                                         jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendOrderedBroadcast,
               "sendOrderedBroadcast",
               "(Landroid/content/Intent;Ljava/lang/String;)V");
   if (_m_Context__sendOrderedBroadcast == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendOrderedBroadcast,
                             intent, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendOrderedBroadcast1 = NULL;
@@ -1846,20 +1778,20 @@ JniResult Context__sendOrderedBroadcast1(jobject self_,
                                          jobject string1,
                                          jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendOrderedBroadcast1,
               "sendOrderedBroadcast",
               "(Landroid/content/Intent;Ljava/lang/String;Landroid/content/"
               "BroadcastReceiver;Landroid/os/Handler;ILjava/lang/"
               "String;Landroid/os/Bundle;)V");
   if (_m_Context__sendOrderedBroadcast1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendOrderedBroadcast1,
                             intent, string, broadcastReceiver, handler, i,
                             string1, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendBroadcastAsUser = NULL;
@@ -1868,17 +1800,17 @@ JniResult Context__sendBroadcastAsUser(jobject self_,
                                        jobject intent,
                                        jobject userHandle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendBroadcastAsUser,
               "sendBroadcastAsUser",
               "(Landroid/content/Intent;Landroid/os/UserHandle;)V");
   if (_m_Context__sendBroadcastAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendBroadcastAsUser,
                             intent, userHandle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendBroadcastAsUser1 = NULL;
@@ -1888,17 +1820,17 @@ JniResult Context__sendBroadcastAsUser1(jobject self_,
                                         jobject userHandle,
                                         jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__sendBroadcastAsUser1, "sendBroadcastAsUser",
       "(Landroid/content/Intent;Landroid/os/UserHandle;Ljava/lang/String;)V");
   if (_m_Context__sendBroadcastAsUser1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendBroadcastAsUser1,
                             intent, userHandle, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendOrderedBroadcastAsUser = NULL;
@@ -1913,20 +1845,20 @@ JniResult Context__sendOrderedBroadcastAsUser(jobject self_,
                                               jobject string1,
                                               jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendOrderedBroadcastAsUser,
               "sendOrderedBroadcastAsUser",
               "(Landroid/content/Intent;Landroid/os/UserHandle;Ljava/lang/"
               "String;Landroid/content/BroadcastReceiver;Landroid/os/"
               "Handler;ILjava/lang/String;Landroid/os/Bundle;)V");
   if (_m_Context__sendOrderedBroadcastAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(
       jniEnv, self_, _m_Context__sendOrderedBroadcastAsUser, intent, userHandle,
       string, broadcastReceiver, handler, i, string1, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendOrderedBroadcast2 = NULL;
@@ -1941,36 +1873,36 @@ JniResult Context__sendOrderedBroadcast2(jobject self_,
                                          jobject string2,
                                          jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendOrderedBroadcast2,
               "sendOrderedBroadcast",
               "(Landroid/content/Intent;Ljava/lang/String;Ljava/lang/"
               "String;Landroid/content/BroadcastReceiver;Landroid/os/"
               "Handler;ILjava/lang/String;Landroid/os/Bundle;)V");
   if (_m_Context__sendOrderedBroadcast2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendOrderedBroadcast2,
                             intent, string, string1, broadcastReceiver, handler,
                             i, string2, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendStickyBroadcast = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__sendStickyBroadcast(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendStickyBroadcast,
               "sendStickyBroadcast", "(Landroid/content/Intent;)V");
   if (_m_Context__sendStickyBroadcast == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendStickyBroadcast,
                             intent);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendStickyBroadcast1 = NULL;
@@ -1979,17 +1911,17 @@ JniResult Context__sendStickyBroadcast1(jobject self_,
                                         jobject intent,
                                         jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendStickyBroadcast1,
               "sendStickyBroadcast",
               "(Landroid/content/Intent;Landroid/os/Bundle;)V");
   if (_m_Context__sendStickyBroadcast1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__sendStickyBroadcast1,
                             intent, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendStickyOrderedBroadcast = NULL;
@@ -2002,36 +1934,36 @@ JniResult Context__sendStickyOrderedBroadcast(jobject self_,
                                               jobject string,
                                               jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__sendStickyOrderedBroadcast,
       "sendStickyOrderedBroadcast",
       "(Landroid/content/Intent;Landroid/content/BroadcastReceiver;Landroid/os/"
       "Handler;ILjava/lang/String;Landroid/os/Bundle;)V");
   if (_m_Context__sendStickyOrderedBroadcast == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__sendStickyOrderedBroadcast, intent,
                             broadcastReceiver, handler, i, string, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__removeStickyBroadcast = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__removeStickyBroadcast(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__removeStickyBroadcast,
               "removeStickyBroadcast", "(Landroid/content/Intent;)V");
   if (_m_Context__removeStickyBroadcast == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__removeStickyBroadcast,
                             intent);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendStickyBroadcastAsUser = NULL;
@@ -2040,17 +1972,17 @@ JniResult Context__sendStickyBroadcastAsUser(jobject self_,
                                              jobject intent,
                                              jobject userHandle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendStickyBroadcastAsUser,
               "sendStickyBroadcastAsUser",
               "(Landroid/content/Intent;Landroid/os/UserHandle;)V");
   if (_m_Context__sendStickyBroadcastAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(
       jniEnv, self_, _m_Context__sendStickyBroadcastAsUser, intent, userHandle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__sendStickyOrderedBroadcastAsUser = NULL;
@@ -2064,20 +1996,20 @@ JniResult Context__sendStickyOrderedBroadcastAsUser(jobject self_,
                                                     jobject string,
                                                     jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__sendStickyOrderedBroadcastAsUser,
               "sendStickyOrderedBroadcastAsUser",
               "(Landroid/content/Intent;Landroid/os/UserHandle;Landroid/"
               "content/BroadcastReceiver;Landroid/os/Handler;ILjava/lang/"
               "String;Landroid/os/Bundle;)V");
   if (_m_Context__sendStickyOrderedBroadcastAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(
       jniEnv, self_, _m_Context__sendStickyOrderedBroadcastAsUser, intent,
       userHandle, broadcastReceiver, handler, i, string, bundle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__removeStickyBroadcastAsUser = NULL;
@@ -2086,18 +2018,18 @@ JniResult Context__removeStickyBroadcastAsUser(jobject self_,
                                                jobject intent,
                                                jobject userHandle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__removeStickyBroadcastAsUser,
               "removeStickyBroadcastAsUser",
               "(Landroid/content/Intent;Landroid/os/UserHandle;)V");
   if (_m_Context__removeStickyBroadcastAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__removeStickyBroadcastAsUser, intent,
                             userHandle);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__registerReceiver = NULL;
@@ -2106,19 +2038,18 @@ JniResult Context__registerReceiver(jobject self_,
                                     jobject broadcastReceiver,
                                     jobject intentFilter) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__registerReceiver, "registerReceiver",
               "(Landroid/content/BroadcastReceiver;Landroid/content/"
               "IntentFilter;)Landroid/content/Intent;");
   if (_m_Context__registerReceiver == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__registerReceiver,
                                   broadcastReceiver, intentFilter);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__registerReceiver1 = NULL;
@@ -2128,19 +2059,18 @@ JniResult Context__registerReceiver1(jobject self_,
                                      jobject intentFilter,
                                      int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__registerReceiver1, "registerReceiver",
               "(Landroid/content/BroadcastReceiver;Landroid/content/"
               "IntentFilter;I)Landroid/content/Intent;");
   if (_m_Context__registerReceiver1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__registerReceiver1,
                                   broadcastReceiver, intentFilter, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__registerReceiver2 = NULL;
@@ -2151,20 +2081,19 @@ JniResult Context__registerReceiver2(jobject self_,
                                      jobject string,
                                      jobject handler) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__registerReceiver2, "registerReceiver",
       "(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/"
       "lang/String;Landroid/os/Handler;)Landroid/content/Intent;");
   if (_m_Context__registerReceiver2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__registerReceiver2, broadcastReceiver,
       intentFilter, string, handler);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__registerReceiver3 = NULL;
@@ -2176,20 +2105,19 @@ JniResult Context__registerReceiver3(jobject self_,
                                      jobject handler,
                                      int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__registerReceiver3, "registerReceiver",
       "(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/"
       "lang/String;Landroid/os/Handler;I)Landroid/content/Intent;");
   if (_m_Context__registerReceiver3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__registerReceiver3, broadcastReceiver,
       intentFilter, string, handler, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__unregisterReceiver = NULL;
@@ -2197,67 +2125,65 @@ FFI_PLUGIN_EXPORT
 JniResult Context__unregisterReceiver(jobject self_,
                                       jobject broadcastReceiver) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__unregisterReceiver, "unregisterReceiver",
               "(Landroid/content/BroadcastReceiver;)V");
   if (_m_Context__unregisterReceiver == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__unregisterReceiver,
                             broadcastReceiver);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startService = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__startService(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startService, "startService",
               "(Landroid/content/Intent;)Landroid/content/ComponentName;");
   if (_m_Context__startService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__startService, intent);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__startForegroundService = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__startForegroundService(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startForegroundService,
               "startForegroundService",
               "(Landroid/content/Intent;)Landroid/content/ComponentName;");
   if (_m_Context__startForegroundService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__startForegroundService, intent);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__stopService = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__stopService(jobject self_, jobject intent) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__stopService, "stopService",
               "(Landroid/content/Intent;)Z");
   if (_m_Context__stopService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__stopService, intent);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__bindService = NULL;
@@ -2267,17 +2193,17 @@ JniResult Context__bindService(jobject self_,
                                jobject serviceConnection,
                                int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__bindService, "bindService",
       "(Landroid/content/Intent;Landroid/content/ServiceConnection;I)Z");
   if (_m_Context__bindService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__bindService, intent, serviceConnection, i);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__bindService1 = NULL;
@@ -2288,18 +2214,18 @@ JniResult Context__bindService1(jobject self_,
                                 jobject executor,
                                 jobject serviceConnection) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__bindService1, "bindService",
               "(Landroid/content/Intent;ILjava/util/concurrent/"
               "Executor;Landroid/content/ServiceConnection;)Z");
   if (_m_Context__bindService1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Context__bindService1,
                                    intent, i, executor, serviceConnection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__bindIsolatedService = NULL;
@@ -2311,19 +2237,19 @@ JniResult Context__bindIsolatedService(jobject self_,
                                        jobject executor,
                                        jobject serviceConnection) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__bindIsolatedService,
               "bindIsolatedService",
               "(Landroid/content/Intent;ILjava/lang/String;Ljava/util/"
               "concurrent/Executor;Landroid/content/ServiceConnection;)Z");
   if (_m_Context__bindIsolatedService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__bindIsolatedService, intent, i, string,
       executor, serviceConnection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__bindServiceAsUser = NULL;
@@ -2334,18 +2260,18 @@ JniResult Context__bindServiceAsUser(jobject self_,
                                      int32_t i,
                                      jobject userHandle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__bindServiceAsUser, "bindServiceAsUser",
               "(Landroid/content/Intent;Landroid/content/"
               "ServiceConnection;ILandroid/os/UserHandle;)Z");
   if (_m_Context__bindServiceAsUser == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Context__bindServiceAsUser,
                                    intent, serviceConnection, i, userHandle);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__updateServiceGroup = NULL;
@@ -2355,32 +2281,32 @@ JniResult Context__updateServiceGroup(jobject self_,
                                       int32_t i,
                                       int32_t i1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__updateServiceGroup, "updateServiceGroup",
               "(Landroid/content/ServiceConnection;II)V");
   if (_m_Context__updateServiceGroup == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__updateServiceGroup,
                             serviceConnection, i, i1);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__unbindService = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__unbindService(jobject self_, jobject serviceConnection) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__unbindService, "unbindService",
               "(Landroid/content/ServiceConnection;)V");
   if (_m_Context__unbindService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__unbindService,
                             serviceConnection);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__startInstrumentation = NULL;
@@ -2390,70 +2316,67 @@ JniResult Context__startInstrumentation(jobject self_,
                                         jobject string,
                                         jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__startInstrumentation,
               "startInstrumentation",
               "(Landroid/content/ComponentName;Ljava/lang/String;Landroid/os/"
               "Bundle;)Z");
   if (_m_Context__startInstrumentation == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__startInstrumentation, componentName, string,
       bundle);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__getSystemService = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getSystemService(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getSystemService, "getSystemService",
               "(Ljava/lang/String;)Ljava/lang/Object;");
   if (_m_Context__getSystemService == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getSystemService, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getSystemService1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getSystemService1(jobject self_, jobject class) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getSystemService1, "getSystemService",
               "(Ljava/lang/Class;)Ljava/lang/Object;");
   if (_m_Context__getSystemService1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getSystemService1, class);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getSystemServiceName = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getSystemServiceName(jobject self_, jobject class) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getSystemServiceName,
               "getSystemServiceName", "(Ljava/lang/Class;)Ljava/lang/String;");
   if (_m_Context__getSystemServiceName == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__getSystemServiceName, class);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__checkPermission = NULL;
@@ -2463,64 +2386,64 @@ JniResult Context__checkPermission(jobject self_,
                                    int32_t i,
                                    int32_t i1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkPermission, "checkPermission",
               "(Ljava/lang/String;II)I");
   if (_m_Context__checkPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkPermission, string, i, i1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkCallingPermission = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__checkCallingPermission(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingPermission,
               "checkCallingPermission", "(Ljava/lang/String;)I");
   if (_m_Context__checkCallingPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkCallingPermission, string);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkCallingOrSelfPermission = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__checkCallingOrSelfPermission(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingOrSelfPermission,
               "checkCallingOrSelfPermission", "(Ljava/lang/String;)I");
   if (_m_Context__checkCallingOrSelfPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkCallingOrSelfPermission, string);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkSelfPermission = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__checkSelfPermission(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkSelfPermission,
               "checkSelfPermission", "(Ljava/lang/String;)I");
   if (_m_Context__checkSelfPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkSelfPermission, string);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforcePermission = NULL;
@@ -2531,16 +2454,16 @@ JniResult Context__enforcePermission(jobject self_,
                                      int32_t i1,
                                      jobject string1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforcePermission, "enforcePermission",
               "(Ljava/lang/String;IILjava/lang/String;)V");
   if (_m_Context__enforcePermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__enforcePermission,
                             string, i, i1, string1);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceCallingPermission = NULL;
@@ -2549,17 +2472,17 @@ JniResult Context__enforceCallingPermission(jobject self_,
                                             jobject string,
                                             jobject string1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceCallingPermission,
               "enforceCallingPermission",
               "(Ljava/lang/String;Ljava/lang/String;)V");
   if (_m_Context__enforceCallingPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__enforceCallingPermission,
                             string, string1);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceCallingOrSelfPermission = NULL;
@@ -2568,18 +2491,18 @@ JniResult Context__enforceCallingOrSelfPermission(jobject self_,
                                                   jobject string,
                                                   jobject string1) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceCallingOrSelfPermission,
               "enforceCallingOrSelfPermission",
               "(Ljava/lang/String;Ljava/lang/String;)V");
   if (_m_Context__enforceCallingOrSelfPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__enforceCallingOrSelfPermission, string,
                             string1);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__grantUriPermission = NULL;
@@ -2589,32 +2512,32 @@ JniResult Context__grantUriPermission(jobject self_,
                                       jobject uri,
                                       int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__grantUriPermission, "grantUriPermission",
               "(Ljava/lang/String;Landroid/net/Uri;I)V");
   if (_m_Context__grantUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__grantUriPermission,
                             string, uri, i);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__revokeUriPermission = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__revokeUriPermission(jobject self_, jobject uri, int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__revokeUriPermission,
               "revokeUriPermission", "(Landroid/net/Uri;I)V");
   if (_m_Context__revokeUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__revokeUriPermission, uri,
                             i);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__revokeUriPermission1 = NULL;
@@ -2624,16 +2547,16 @@ JniResult Context__revokeUriPermission1(jobject self_,
                                         jobject uri,
                                         int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__revokeUriPermission1,
               "revokeUriPermission", "(Ljava/lang/String;Landroid/net/Uri;I)V");
   if (_m_Context__revokeUriPermission1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__revokeUriPermission1,
                             string, uri, i);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkUriPermission = NULL;
@@ -2644,16 +2567,16 @@ JniResult Context__checkUriPermission(jobject self_,
                                       int32_t i1,
                                       int32_t i2) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkUriPermission, "checkUriPermission",
               "(Landroid/net/Uri;III)I");
   if (_m_Context__checkUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkUriPermission, uri, i, i1, i2);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkUriPermissions = NULL;
@@ -2664,17 +2587,16 @@ JniResult Context__checkUriPermissions(jobject self_,
                                        int32_t i1,
                                        int32_t i2) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkUriPermissions,
               "checkUriPermissions", "(Ljava/util/List;III)[I");
   if (_m_Context__checkUriPermissions == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__checkUriPermissions, list, i, i1, i2);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__checkCallingUriPermission = NULL;
@@ -2683,16 +2605,16 @@ JniResult Context__checkCallingUriPermission(jobject self_,
                                              jobject uri,
                                              int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingUriPermission,
               "checkCallingUriPermission", "(Landroid/net/Uri;I)I");
   if (_m_Context__checkCallingUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkCallingUriPermission, uri, i);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkCallingUriPermissions = NULL;
@@ -2701,17 +2623,16 @@ JniResult Context__checkCallingUriPermissions(jobject self_,
                                               jobject list,
                                               int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingUriPermissions,
               "checkCallingUriPermissions", "(Ljava/util/List;I)[I");
   if (_m_Context__checkCallingUriPermissions == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__checkCallingUriPermissions, list, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__checkCallingOrSelfUriPermission = NULL;
@@ -2720,16 +2641,16 @@ JniResult Context__checkCallingOrSelfUriPermission(jobject self_,
                                                    jobject uri,
                                                    int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingOrSelfUriPermission,
               "checkCallingOrSelfUriPermission", "(Landroid/net/Uri;I)I");
   if (_m_Context__checkCallingOrSelfUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result = (*jniEnv)->CallIntMethod(
       jniEnv, self_, _m_Context__checkCallingOrSelfUriPermission, uri, i);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__checkCallingOrSelfUriPermissions = NULL;
@@ -2738,17 +2659,16 @@ JniResult Context__checkCallingOrSelfUriPermissions(jobject self_,
                                                     jobject list,
                                                     int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkCallingOrSelfUriPermissions,
               "checkCallingOrSelfUriPermissions", "(Ljava/util/List;I)[I");
   if (_m_Context__checkCallingOrSelfUriPermissions == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__checkCallingOrSelfUriPermissions, list, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__checkUriPermission1 = NULL;
@@ -2761,18 +2681,18 @@ JniResult Context__checkUriPermission1(jobject self_,
                                        int32_t i1,
                                        int32_t i2) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__checkUriPermission1,
               "checkUriPermission",
               "(Landroid/net/Uri;Ljava/lang/String;Ljava/lang/String;III)I");
   if (_m_Context__checkUriPermission1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Context__checkUriPermission1,
                                uri, string, string1, i, i1, i2);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceUriPermission = NULL;
@@ -2784,17 +2704,17 @@ JniResult Context__enforceUriPermission(jobject self_,
                                         int32_t i2,
                                         jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceUriPermission,
               "enforceUriPermission",
               "(Landroid/net/Uri;IIILjava/lang/String;)V");
   if (_m_Context__enforceUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__enforceUriPermission,
                             uri, i, i1, i2, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceCallingUriPermission = NULL;
@@ -2804,17 +2724,17 @@ JniResult Context__enforceCallingUriPermission(jobject self_,
                                                int32_t i,
                                                jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceCallingUriPermission,
               "enforceCallingUriPermission",
               "(Landroid/net/Uri;ILjava/lang/String;)V");
   if (_m_Context__enforceCallingUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(
       jniEnv, self_, _m_Context__enforceCallingUriPermission, uri, i, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceCallingOrSelfUriPermission = NULL;
@@ -2824,18 +2744,18 @@ JniResult Context__enforceCallingOrSelfUriPermission(jobject self_,
                                                      int32_t i,
                                                      jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceCallingOrSelfUriPermission,
               "enforceCallingOrSelfUriPermission",
               "(Landroid/net/Uri;ILjava/lang/String;)V");
   if (_m_Context__enforceCallingOrSelfUriPermission == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__enforceCallingOrSelfUriPermission, uri,
                             i, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__enforceUriPermission1 = NULL;
@@ -2849,34 +2769,34 @@ JniResult Context__enforceUriPermission1(jobject self_,
                                          int32_t i2,
                                          jobject string2) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__enforceUriPermission1,
               "enforceUriPermission",
               "(Landroid/net/Uri;Ljava/lang/String;Ljava/lang/String;IIILjava/"
               "lang/String;)V");
   if (_m_Context__enforceUriPermission1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Context__enforceUriPermission1,
                             uri, string, string1, i, i1, i2, string2);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__revokeSelfPermissionOnKill = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__revokeSelfPermissionOnKill(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__revokeSelfPermissionOnKill,
               "revokeSelfPermissionOnKill", "(Ljava/lang/String;)V");
   if (_m_Context__revokeSelfPermissionOnKill == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(jniEnv, self_,
                             _m_Context__revokeSelfPermissionOnKill, string);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__revokeSelfPermissionsOnKill = NULL;
@@ -2884,16 +2804,16 @@ FFI_PLUGIN_EXPORT
 JniResult Context__revokeSelfPermissionsOnKill(jobject self_,
                                                jobject collection) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__revokeSelfPermissionsOnKill,
               "revokeSelfPermissionsOnKill", "(Ljava/util/Collection;)V");
   if (_m_Context__revokeSelfPermissionsOnKill == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   (*jniEnv)->CallVoidMethod(
       jniEnv, self_, _m_Context__revokeSelfPermissionsOnKill, collection);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__createPackageContext = NULL;
@@ -2902,36 +2822,34 @@ JniResult Context__createPackageContext(jobject self_,
                                         jobject string,
                                         int32_t i) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createPackageContext,
               "createPackageContext",
               "(Ljava/lang/String;I)Landroid/content/Context;");
   if (_m_Context__createPackageContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createPackageContext, string, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createContextForSplit = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__createContextForSplit(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createContextForSplit,
               "createContextForSplit",
               "(Ljava/lang/String;)Landroid/content/Context;");
   if (_m_Context__createContextForSplit == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createContextForSplit, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createConfigurationContext = NULL;
@@ -2939,36 +2857,34 @@ FFI_PLUGIN_EXPORT
 JniResult Context__createConfigurationContext(jobject self_,
                                               jobject configuration) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createConfigurationContext,
               "createConfigurationContext",
               "(Landroid/content/res/Configuration;)Landroid/content/Context;");
   if (_m_Context__createConfigurationContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createConfigurationContext, configuration);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createDisplayContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__createDisplayContext(jobject self_, jobject display) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createDisplayContext,
               "createDisplayContext",
               "(Landroid/view/Display;)Landroid/content/Context;");
   if (_m_Context__createDisplayContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createDisplayContext, display);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createWindowContext = NULL;
@@ -2977,18 +2893,17 @@ JniResult Context__createWindowContext(jobject self_,
                                        int32_t i,
                                        jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createWindowContext,
               "createWindowContext",
               "(ILandroid/os/Bundle;)Landroid/content/Context;");
   if (_m_Context__createWindowContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createWindowContext, i, bundle);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createWindowContext1 = NULL;
@@ -2998,134 +2913,129 @@ JniResult Context__createWindowContext1(jobject self_,
                                         int32_t i,
                                         jobject bundle) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Context, &_m_Context__createWindowContext1, "createWindowContext",
       "(Landroid/view/Display;ILandroid/os/Bundle;)Landroid/content/Context;");
   if (_m_Context__createWindowContext1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createWindowContext1, display, i, bundle);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__createContext(jobject self_, jobject contextParams) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createContext, "createContext",
               "(Landroid/content/ContextParams;)Landroid/content/Context;");
   if (_m_Context__createContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createContext, contextParams);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createAttributionContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__createAttributionContext(jobject self_, jobject string) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createAttributionContext,
               "createAttributionContext",
               "(Ljava/lang/String;)Landroid/content/Context;");
   if (_m_Context__createAttributionContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createAttributionContext, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__createDeviceProtectedStorageContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__createDeviceProtectedStorageContext(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__createDeviceProtectedStorageContext,
               "createDeviceProtectedStorageContext",
               "()Landroid/content/Context;");
   if (_m_Context__createDeviceProtectedStorageContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Context__createDeviceProtectedStorageContext);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__getDisplay = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__getDisplay(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__getDisplay, "getDisplay",
               "()Landroid/view/Display;");
   if (_m_Context__getDisplay == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Context__getDisplay);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Context__isRestricted = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__isRestricted(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__isRestricted, "isRestricted", "()Z");
   if (_m_Context__isRestricted == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Context__isRestricted);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__isDeviceProtectedStorage = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__isDeviceProtectedStorage(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__isDeviceProtectedStorage,
               "isDeviceProtectedStorage", "()Z");
   if (_m_Context__isDeviceProtectedStorage == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Context__isDeviceProtectedStorage);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Context__isUiContext = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Context__isUiContext(jobject self_) {
   load_env();
-  load_class_gr(&_c_Context, "android/content/Context");
+  load_class_global_ref(&_c_Context, "android/content/Context");
   if (_c_Context == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Context, &_m_Context__isUiContext, "isUiContext", "()Z");
   if (_m_Context__isUiContext == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Context__isUiContext);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 // androidx.health.connect.client.request.AggregateRequest
@@ -3137,20 +3047,20 @@ JniResult AggregateRequest__ctor(jobject set,
                                  jobject timeRangeFilter,
                                  jobject set1) {
   load_env();
-  load_class_gr(&_c_AggregateRequest,
-                "androidx/health/connect/client/request/AggregateRequest");
+  load_class_global_ref(
+      &_c_AggregateRequest,
+      "androidx/health/connect/client/request/AggregateRequest");
   if (_c_AggregateRequest == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregateRequest, &_m_AggregateRequest__ctor, "<init>",
               "(Ljava/util/Set;Landroidx/health/connect/client/time/"
               "TimeRangeFilter;Ljava/util/Set;)V");
   if (_m_AggregateRequest__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_AggregateRequest,
                                          _m_AggregateRequest__ctor, set,
                                          timeRangeFilter, set1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_AggregateRequest__ctor1 = NULL;
@@ -3161,55 +3071,57 @@ JniResult AggregateRequest__ctor1(jobject set,
                                   int32_t i,
                                   jobject defaultConstructorMarker) {
   load_env();
-  load_class_gr(&_c_AggregateRequest,
-                "androidx/health/connect/client/request/AggregateRequest");
+  load_class_global_ref(
+      &_c_AggregateRequest,
+      "androidx/health/connect/client/request/AggregateRequest");
   if (_c_AggregateRequest == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregateRequest, &_m_AggregateRequest__ctor1, "<init>",
               "(Ljava/util/Set;Landroidx/health/connect/client/time/"
               "TimeRangeFilter;Ljava/util/Set;ILkotlin/jvm/internal/"
               "DefaultConstructorMarker;)V");
   if (_m_AggregateRequest__ctor1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_AggregateRequest, _m_AggregateRequest__ctor1, set,
       timeRangeFilter, set1, i, defaultConstructorMarker);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_AggregateRequest__equals1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregateRequest__equals1(jobject self_, jobject object) {
   load_env();
-  load_class_gr(&_c_AggregateRequest,
-                "androidx/health/connect/client/request/AggregateRequest");
+  load_class_global_ref(
+      &_c_AggregateRequest,
+      "androidx/health/connect/client/request/AggregateRequest");
   if (_c_AggregateRequest == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregateRequest, &_m_AggregateRequest__equals1, "equals",
               "(Ljava/lang/Object;)Z");
   if (_m_AggregateRequest__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_AggregateRequest__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_AggregateRequest__hashCode1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregateRequest__hashCode1(jobject self_) {
   load_env();
-  load_class_gr(&_c_AggregateRequest,
-                "androidx/health/connect/client/request/AggregateRequest");
+  load_class_global_ref(
+      &_c_AggregateRequest,
+      "androidx/health/connect/client/request/AggregateRequest");
   if (_c_AggregateRequest == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregateRequest, &_m_AggregateRequest__hashCode1, "hashCode",
               "()I");
   if (_m_AggregateRequest__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_AggregateRequest__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 // androidx.health.connect.client.time.TimeRangeFilter
@@ -3222,20 +3134,19 @@ JniResult TimeRangeFilter__ctor(jobject instant,
                                 jobject localDateTime,
                                 jobject localDateTime1) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__ctor, "<init>",
               "(Ljava/time/Instant;Ljava/time/Instant;Ljava/time/"
               "LocalDateTime;Ljava/time/LocalDateTime;)V");
   if (_m_TimeRangeFilter__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__ctor,
                            instant, instant1, localDateTime, localDateTime1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__ctor1 = NULL;
@@ -3247,93 +3158,90 @@ JniResult TimeRangeFilter__ctor1(jobject instant,
                                  int32_t i,
                                  jobject defaultConstructorMarker) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_TimeRangeFilter, &_m_TimeRangeFilter__ctor1, "<init>",
       "(Ljava/time/Instant;Ljava/time/Instant;Ljava/time/LocalDateTime;Ljava/"
       "time/LocalDateTime;ILkotlin/jvm/internal/DefaultConstructorMarker;)V");
   if (_m_TimeRangeFilter__ctor1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__ctor1, instant, instant1,
       localDateTime, localDateTime1, i, defaultConstructorMarker);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__equals1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__equals1(jobject self_, jobject object) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__equals1, "equals",
               "(Ljava/lang/Object;)Z");
   if (_m_TimeRangeFilter__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_TimeRangeFilter__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_TimeRangeFilter__hashCode1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__hashCode1(jobject self_) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__hashCode1, "hashCode",
               "()I");
   if (_m_TimeRangeFilter__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_TimeRangeFilter__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_TimeRangeFilter__ctor2 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__ctor2() {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__ctor2, "<init>", "()V");
   if (_m_TimeRangeFilter__ctor2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_TimeRangeFilter,
                                          _m_TimeRangeFilter__ctor2);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__between = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__between(jobject instant, jobject instant1) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__between,
                      "between",
                      "(Ljava/time/Instant;Ljava/time/Instant;)Landroidx/health/"
                      "connect/client/time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__between == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__between, instant,
       instant1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__between1 = NULL;
@@ -3341,113 +3249,108 @@ FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__between1(jobject localDateTime,
                                     jobject localDateTime1) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(
       _c_TimeRangeFilter, &_m_TimeRangeFilter__between1, "between",
       "(Ljava/time/LocalDateTime;Ljava/time/LocalDateTime;)Landroidx/health/"
       "connect/client/time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__between1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__between1, localDateTime,
       localDateTime1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__before = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__before(jobject instant) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__before, "before",
                      "(Ljava/time/Instant;)Landroidx/health/connect/client/"
                      "time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__before == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__before, instant);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__before1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__before1(jobject localDateTime) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__before1, "before",
                      "(Ljava/time/LocalDateTime;)Landroidx/health/connect/"
                      "client/time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__before1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__before1, localDateTime);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__after = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__after(jobject instant) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__after, "after",
                      "(Ljava/time/Instant;)Landroidx/health/connect/client/"
                      "time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__after == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__after, instant);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_TimeRangeFilter__after1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult TimeRangeFilter__after1(jobject localDateTime) {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_TimeRangeFilter, &_m_TimeRangeFilter__after1, "after",
                      "(Ljava/time/LocalDateTime;)Landroidx/health/connect/"
                      "client/time/TimeRangeFilter;");
   if (_m_TimeRangeFilter__after1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_TimeRangeFilter, _m_TimeRangeFilter__after1, localDateTime);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_TimeRangeFilter__Companion = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_TimeRangeFilter__Companion() {
   load_env();
-  load_class_gr(&_c_TimeRangeFilter,
-                "androidx/health/connect/client/time/TimeRangeFilter");
+  load_class_global_ref(&_c_TimeRangeFilter,
+                        "androidx/health/connect/client/time/TimeRangeFilter");
   if (_c_TimeRangeFilter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(
       _c_TimeRangeFilter, &_f_TimeRangeFilter__Companion, "Companion",
       "Landroidx/health/connect/client/time/TimeRangeFilter$Companion;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_TimeRangeFilter, _f_TimeRangeFilter__Companion));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_TimeRangeFilter, _f_TimeRangeFilter__Companion);
+  return to_global_ref_result(_result);
 }
 
 // androidx.health.connect.client.aggregate.AggregationResult
@@ -3457,110 +3360,112 @@ jmethodID _m_AggregationResult__ctor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__ctor(jobject map, jobject map1, jobject set) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__ctor, "<init>",
               "(Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;)V");
   if (_m_AggregationResult__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_AggregationResult, _m_AggregationResult__ctor, map, map1, set);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_AggregationResult__getDataOrigins = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__getDataOrigins(jobject self_) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__getDataOrigins,
               "getDataOrigins", "()Ljava/util/Set;");
   if (_m_AggregationResult__getDataOrigins == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_AggregationResult__getDataOrigins);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_AggregationResult__hasMetric = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__hasMetric(jobject self_, jobject aggregateMetric) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__hasMetric,
               "hasMetric",
               "(Landroidx/health/connect/client/aggregate/AggregateMetric;)Z");
   if (_m_AggregationResult__hasMetric == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_AggregationResult__hasMetric, aggregateMetric);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_AggregationResult__contains = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__contains(jobject self_, jobject aggregateMetric) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__contains, "contains",
               "(Landroidx/health/connect/client/aggregate/AggregateMetric;)Z");
   if (_m_AggregationResult__contains == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_AggregationResult__contains, aggregateMetric);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_AggregationResult__getMetric = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__getMetric(jobject self_, jobject aggregateMetric) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__getMetric,
               "getMetric",
               "(Landroidx/health/connect/client/aggregate/"
               "AggregateMetric;)Ljava/lang/Object;");
   if (_m_AggregationResult__getMetric == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_AggregationResult__getMetric, aggregateMetric);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_AggregationResult__get0 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult AggregationResult__get0(jobject self_, jobject aggregateMetric) {
   load_env();
-  load_class_gr(&_c_AggregationResult,
-                "androidx/health/connect/client/aggregate/AggregationResult");
+  load_class_global_ref(
+      &_c_AggregationResult,
+      "androidx/health/connect/client/aggregate/AggregationResult");
   if (_c_AggregationResult == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_AggregationResult, &_m_AggregationResult__get0, "get",
               "(Landroidx/health/connect/client/aggregate/"
               "AggregateMetric;)Ljava/lang/Object;");
   if (_m_AggregationResult__get0 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_AggregationResult__get0, aggregateMetric);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // androidx.health.connect.client.aggregate.AggregateMetric
@@ -3573,38 +3478,39 @@ JniResult AggregateMetric__ctor(jobject converter,
                                 jobject aggregationType,
                                 jobject string1) {
   load_env();
-  load_class_gr(&_c_AggregateMetric,
-                "androidx/health/connect/client/aggregate/AggregateMetric");
+  load_class_global_ref(
+      &_c_AggregateMetric,
+      "androidx/health/connect/client/aggregate/AggregateMetric");
   if (_c_AggregateMetric == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_AggregateMetric, &_m_AggregateMetric__ctor, "<init>",
       "(Landroidx/health/connect/client/aggregate/"
       "AggregateMetric$Converter;Ljava/lang/String;Landroidx/health/connect/"
       "client/aggregate/AggregateMetric$AggregationType;Ljava/lang/String;)V");
   if (_m_AggregateMetric__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_AggregateMetric, _m_AggregateMetric__ctor,
                            converter, string, aggregationType, string1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_AggregateMetric__Companion = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_AggregateMetric__Companion() {
   load_env();
-  load_class_gr(&_c_AggregateMetric,
-                "androidx/health/connect/client/aggregate/AggregateMetric");
+  load_class_global_ref(
+      &_c_AggregateMetric,
+      "androidx/health/connect/client/aggregate/AggregateMetric");
   if (_c_AggregateMetric == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(
       _c_AggregateMetric, &_f_AggregateMetric__Companion, "Companion",
       "Landroidx/health/connect/client/aggregate/AggregateMetric$Companion;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_AggregateMetric, _f_AggregateMetric__Companion));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_AggregateMetric, _f_AggregateMetric__Companion);
+  return to_global_ref_result(_result);
 }
 
 // androidx.health.connect.client.records.StepsRecord
@@ -3619,21 +3525,20 @@ JniResult StepsRecord__ctor(jobject instant,
                             int64_t j,
                             jobject metadata) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__ctor, "<init>",
               "(Ljava/time/Instant;Ljava/time/ZoneOffset;Ljava/time/"
               "Instant;Ljava/time/ZoneOffset;JLandroidx/health/connect/client/"
               "records/metadata/Metadata;)V");
   if (_m_StepsRecord__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_StepsRecord, _m_StepsRecord__ctor, instant, zoneOffset,
       instant1, zoneOffset1, j, metadata);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__ctor1 = NULL;
@@ -3647,193 +3552,187 @@ JniResult StepsRecord__ctor1(jobject instant,
                              int32_t i,
                              jobject defaultConstructorMarker) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_StepsRecord, &_m_StepsRecord__ctor1, "<init>",
       "(Ljava/time/Instant;Ljava/time/ZoneOffset;Ljava/time/Instant;Ljava/time/"
       "ZoneOffset;JLandroidx/health/connect/client/records/metadata/"
       "Metadata;ILkotlin/jvm/internal/DefaultConstructorMarker;)V");
   if (_m_StepsRecord__ctor1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_StepsRecord, _m_StepsRecord__ctor1, instant, zoneOffset,
       instant1, zoneOffset1, j, metadata, i, defaultConstructorMarker);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__getStartTime = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getStartTime(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getStartTime, "getStartTime",
               "()Ljava/time/Instant;");
   if (_m_StepsRecord__getStartTime == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_StepsRecord__getStartTime);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__getStartZoneOffset = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getStartZoneOffset(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getStartZoneOffset,
               "getStartZoneOffset", "()Ljava/time/ZoneOffset;");
   if (_m_StepsRecord__getStartZoneOffset == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_StepsRecord__getStartZoneOffset);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__getEndTime = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getEndTime(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getEndTime, "getEndTime",
               "()Ljava/time/Instant;");
   if (_m_StepsRecord__getEndTime == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_StepsRecord__getEndTime);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__getEndZoneOffset = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getEndZoneOffset(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getEndZoneOffset,
               "getEndZoneOffset", "()Ljava/time/ZoneOffset;");
   if (_m_StepsRecord__getEndZoneOffset == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_StepsRecord__getEndZoneOffset);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__getCount = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getCount(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getCount, "getCount", "()J");
   if (_m_StepsRecord__getCount == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int64_t _result =
       (*jniEnv)->CallLongMethod(jniEnv, self_, _m_StepsRecord__getCount);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_StepsRecord__getMetadata = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__getMetadata(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__getMetadata, "getMetadata",
               "()Landroidx/health/connect/client/records/metadata/Metadata;");
   if (_m_StepsRecord__getMetadata == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_StepsRecord__getMetadata);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_StepsRecord__equals1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__equals1(jobject self_, jobject object) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__equals1, "equals",
               "(Ljava/lang/Object;)Z");
   if (_m_StepsRecord__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_StepsRecord__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_StepsRecord__hashCode1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult StepsRecord__hashCode1(jobject self_) {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_StepsRecord, &_m_StepsRecord__hashCode1, "hashCode", "()I");
   if (_m_StepsRecord__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_StepsRecord__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jfieldID _f_StepsRecord__Companion = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_StepsRecord__Companion() {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(
       _c_StepsRecord, &_f_StepsRecord__Companion, "Companion",
       "Landroidx/health/connect/client/records/StepsRecord$Companion;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_StepsRecord, _f_StepsRecord__Companion));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetStaticObjectField(jniEnv, _c_StepsRecord,
+                                                    _f_StepsRecord__Companion);
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_StepsRecord__COUNT_TOTAL = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_StepsRecord__COUNT_TOTAL() {
   load_env();
-  load_class_gr(&_c_StepsRecord,
-                "androidx/health/connect/client/records/StepsRecord");
+  load_class_global_ref(&_c_StepsRecord,
+                        "androidx/health/connect/client/records/StepsRecord");
   if (_c_StepsRecord == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(
       _c_StepsRecord, &_f_StepsRecord__COUNT_TOTAL, "COUNT_TOTAL",
       "Landroidx/health/connect/client/aggregate/AggregateMetric;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_StepsRecord, _f_StepsRecord__COUNT_TOTAL));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_StepsRecord, _f_StepsRecord__COUNT_TOTAL);
+  return to_global_ref_result(_result);
 }
 
 // java.time.Instant
@@ -3843,487 +3742,464 @@ jmethodID _m_Instant__now = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__now() {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__now, "now",
                      "()Ljava/time/Instant;");
   if (_m_Instant__now == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Instant, _m_Instant__now);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__now1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__now1(jobject clock) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__now1, "now",
                      "(Ljava/time/Clock;)Ljava/time/Instant;");
   if (_m_Instant__now1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Instant,
                                                       _m_Instant__now1, clock);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__ofEpochSecond = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__ofEpochSecond(int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__ofEpochSecond, "ofEpochSecond",
                      "(J)Ljava/time/Instant;");
   if (_m_Instant__ofEpochSecond == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Instant, _m_Instant__ofEpochSecond, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__ofEpochSecond1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__ofEpochSecond1(int64_t j, int64_t j1) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__ofEpochSecond1, "ofEpochSecond",
                      "(JJ)Ljava/time/Instant;");
   if (_m_Instant__ofEpochSecond1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Instant, _m_Instant__ofEpochSecond1, j, j1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__ofEpochMilli = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__ofEpochMilli(int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__ofEpochMilli, "ofEpochMilli",
                      "(J)Ljava/time/Instant;");
   if (_m_Instant__ofEpochMilli == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Instant, _m_Instant__ofEpochMilli, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__from = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__from(jobject temporalAccessor) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(
       _c_Instant, &_m_Instant__from, "from",
       "(Ljava/time/temporal/TemporalAccessor;)Ljava/time/Instant;");
   if (_m_Instant__from == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Instant, _m_Instant__from, temporalAccessor);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__parse = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__parse(jobject charSequence) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_Instant, &_m_Instant__parse, "parse",
                      "(Ljava/lang/CharSequence;)Ljava/time/Instant;");
   if (_m_Instant__parse == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Instant, _m_Instant__parse, charSequence);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__isSupported = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__isSupported(jobject self_, jobject temporalField) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__isSupported, "isSupported",
               "(Ljava/time/temporal/TemporalField;)Z");
   if (_m_Instant__isSupported == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Instant__isSupported, temporalField);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__isSupported1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__isSupported1(jobject self_, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__isSupported1, "isSupported",
               "(Ljava/time/temporal/TemporalUnit;)Z");
   if (_m_Instant__isSupported1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(
       jniEnv, self_, _m_Instant__isSupported1, temporalUnit);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__range = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__range(jobject self_, jobject temporalField) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__range, "range",
       "(Ljava/time/temporal/TemporalField;)Ljava/time/temporal/ValueRange;");
   if (_m_Instant__range == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__range, temporalField);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__get0 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__get0(jobject self_, jobject temporalField) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__get0, "get",
               "(Ljava/time/temporal/TemporalField;)I");
   if (_m_Instant__get0 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Instant__get0, temporalField);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__getLong = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__getLong(jobject self_, jobject temporalField) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__getLong, "getLong",
               "(Ljava/time/temporal/TemporalField;)J");
   if (_m_Instant__getLong == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int64_t _result = (*jniEnv)->CallLongMethod(
       jniEnv, self_, _m_Instant__getLong, temporalField);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__getEpochSecond = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__getEpochSecond(jobject self_) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__getEpochSecond, "getEpochSecond", "()J");
   if (_m_Instant__getEpochSecond == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int64_t _result =
       (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Instant__getEpochSecond);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__getNano = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__getNano(jobject self_) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__getNano, "getNano", "()I");
   if (_m_Instant__getNano == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Instant__getNano);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__with0 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__with0(jobject self_, jobject temporalAdjuster) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__with0, "with",
               "(Ljava/time/temporal/TemporalAdjuster;)Ljava/time/Instant;");
   if (_m_Instant__with0 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__with0, temporalAdjuster);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__with1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__with1(jobject self_, jobject temporalField, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__with1, "with",
               "(Ljava/time/temporal/TemporalField;J)Ljava/time/Instant;");
   if (_m_Instant__with1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__with1, temporalField, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__truncatedTo = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__truncatedTo(jobject self_, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__truncatedTo, "truncatedTo",
               "(Ljava/time/temporal/TemporalUnit;)Ljava/time/Instant;");
   if (_m_Instant__truncatedTo == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__truncatedTo, temporalUnit);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plus = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plus(jobject self_, jobject temporalAmount) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__plus, "plus",
               "(Ljava/time/temporal/TemporalAmount;)Ljava/time/Instant;");
   if (_m_Instant__plus == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__plus,
                                                 temporalAmount);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plus1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plus1(jobject self_, int64_t j, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__plus1, "plus",
               "(JLjava/time/temporal/TemporalUnit;)Ljava/time/Instant;");
   if (_m_Instant__plus1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__plus1, j, temporalUnit);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plusSeconds = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plusSeconds(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__plusSeconds, "plusSeconds",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__plusSeconds == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__plusSeconds, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plusMillis = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plusMillis(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__plusMillis, "plusMillis",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__plusMillis == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__plusMillis, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plusNanos = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plusNanos(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__plusNanos, "plusNanos",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__plusNanos == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__plusNanos, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minus = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minus(jobject self_, jobject temporalAmount) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__minus, "minus",
               "(Ljava/time/temporal/TemporalAmount;)Ljava/time/Instant;");
   if (_m_Instant__minus == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__minus, temporalAmount);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minus1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minus1(jobject self_, int64_t j, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__minus1, "minus",
               "(JLjava/time/temporal/TemporalUnit;)Ljava/time/Instant;");
   if (_m_Instant__minus1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__minus1, j, temporalUnit);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minusSeconds = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minusSeconds(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__minusSeconds, "minusSeconds",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__minusSeconds == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__minusSeconds, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minusMillis = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minusMillis(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__minusMillis, "minusMillis",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__minusMillis == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__minusMillis, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minusNanos = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minusNanos(jobject self_, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__minusNanos, "minusNanos",
               "(J)Ljava/time/Instant;");
   if (_m_Instant__minusNanos == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__minusNanos, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__query = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__query(jobject self_, jobject temporalQuery) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__query, "query",
               "(Ljava/time/temporal/TemporalQuery;)Ljava/lang/Object;");
   if (_m_Instant__query == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__query, temporalQuery);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__adjustInto = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__adjustInto(jobject self_, jobject temporal) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__adjustInto, "adjustInto",
               "(Ljava/time/temporal/Temporal;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__adjustInto == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__adjustInto, temporal);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__until = NULL;
@@ -4332,1682 +4208,315 @@ JniResult Instant__until(jobject self_,
                          jobject temporal,
                          jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__until, "until",
       "(Ljava/time/temporal/Temporal;Ljava/time/temporal/TemporalUnit;)J");
   if (_m_Instant__until == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int64_t _result = (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Instant__until,
                                               temporal, temporalUnit);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__atOffset = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__atOffset(jobject self_, jobject zoneOffset) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__atOffset, "atOffset",
               "(Ljava/time/ZoneOffset;)Ljava/time/OffsetDateTime;");
   if (_m_Instant__atOffset == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__atOffset, zoneOffset);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__atZone = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__atZone(jobject self_, jobject zoneId) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__atZone, "atZone",
               "(Ljava/time/ZoneId;)Ljava/time/ZonedDateTime;");
   if (_m_Instant__atZone == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__atZone, zoneId);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__toEpochMilli = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__toEpochMilli(jobject self_) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__toEpochMilli, "toEpochMilli", "()J");
   if (_m_Instant__toEpochMilli == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int64_t _result =
       (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Instant__toEpochMilli);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__compareTo = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__compareTo(jobject self_, jobject instant) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__compareTo, "compareTo",
               "(Ljava/time/Instant;)I");
   if (_m_Instant__compareTo == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Instant__compareTo, instant);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__isAfter = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__isAfter(jobject self_, jobject instant) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__isAfter, "isAfter",
               "(Ljava/time/Instant;)Z");
   if (_m_Instant__isAfter == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Instant__isAfter, instant);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__isBefore = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__isBefore(jobject self_, jobject instant) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__isBefore, "isBefore",
               "(Ljava/time/Instant;)Z");
   if (_m_Instant__isBefore == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_,
                                                  _m_Instant__isBefore, instant);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__equals1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__equals1(jobject self_, jobject object) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__equals1, "equals",
               "(Ljava/lang/Object;)Z");
   if (_m_Instant__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   uint8_t _result =
       (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Instant__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__hashCode1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__hashCode1(jobject self_) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__hashCode1, "hashCode", "()I");
   if (_m_Instant__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Instant__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jmethodID _m_Instant__toString1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__toString1(jobject self_) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__toString1, "toString",
               "()Ljava/lang/String;");
   if (_m_Instant__toString1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Instant__toString1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minus2 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minus2(jobject self_, int64_t j, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__minus2, "minus",
       "(JLjava/time/temporal/TemporalUnit;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__minus2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__minus2, j, temporalUnit);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__minus3 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__minus3(jobject self_, jobject temporalAmount) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__minus3, "minus",
       "(Ljava/time/temporal/TemporalAmount;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__minus3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__minus3, temporalAmount);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plus2 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plus2(jobject self_, int64_t j, jobject temporalUnit) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__plus2, "plus",
       "(JLjava/time/temporal/TemporalUnit;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__plus2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__plus2, j, temporalUnit);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__plus3 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__plus3(jobject self_, jobject temporalAmount) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__plus3, "plus",
       "(Ljava/time/temporal/TemporalAmount;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__plus3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__plus3, temporalAmount);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__with2 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__with2(jobject self_, jobject temporalField, int64_t j) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__with2, "with",
       "(Ljava/time/temporal/TemporalField;J)Ljava/time/temporal/Temporal;");
   if (_m_Instant__with2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__with2, temporalField, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__with3 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__with3(jobject self_, jobject temporalAdjuster) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(
       _c_Instant, &_m_Instant__with3, "with",
       "(Ljava/time/temporal/TemporalAdjuster;)Ljava/time/temporal/Temporal;");
   if (_m_Instant__with3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Instant__with3, temporalAdjuster);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Instant__compareTo1 = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Instant__compareTo1(jobject self_, jobject object) {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_Instant, &_m_Instant__compareTo1, "compareTo",
               "(Ljava/lang/Object;)I");
   if (_m_Instant__compareTo1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   int32_t _result =
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Instant__compareTo1, object);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
 }
 
 jfieldID _f_Instant__EPOCH = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_Instant__EPOCH() {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Instant, &_f_Instant__EPOCH, "EPOCH",
                     "Ljava/time/Instant;");
-  jobject _result = to_global_ref(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__EPOCH));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__EPOCH);
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Instant__MAX = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_Instant__MAX() {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Instant, &_f_Instant__MAX, "MAX", "Ljava/time/Instant;");
-  jobject _result = to_global_ref(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__MAX));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__MAX);
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Instant__MIN = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_Instant__MIN() {
   load_env();
-  load_class_gr(&_c_Instant, "java/time/Instant");
+  load_class_global_ref(&_c_Instant, "java/time/Instant");
   if (_c_Instant == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Instant, &_f_Instant__MIN, "MIN", "Ljava/time/Instant;");
-  jobject _result = to_global_ref(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__MIN));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
-}
-
-// java.lang.Long
-jclass _c_Long = NULL;
-
-jmethodID _m_Long__ctor = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__ctor(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__ctor, "<init>", "(J)V");
-  if (_m_Long__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Long, _m_Long__ctor, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__ctor1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__ctor1(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__ctor1, "<init>", "(Ljava/lang/String;)V");
-  if (_m_Long__ctor1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
   jobject _result =
-      (*jniEnv)->NewObject(jniEnv, _c_Long, _m_Long__ctor1, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toString1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toString1(int64_t j, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toString1, "toString",
-                     "(JI)Ljava/lang/String;");
-  if (_m_Long__toString1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long,
-                                                      _m_Long__toString1, j, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toUnsignedString = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toUnsignedString(int64_t j, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toUnsignedString, "toUnsignedString",
-                     "(JI)Ljava/lang/String;");
-  if (_m_Long__toUnsignedString == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__toUnsignedString, j, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toHexString = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toHexString(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toHexString, "toHexString",
-                     "(J)Ljava/lang/String;");
-  if (_m_Long__toHexString == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long,
-                                                      _m_Long__toHexString, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toOctalString = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toOctalString(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toOctalString, "toOctalString",
-                     "(J)Ljava/lang/String;");
-  if (_m_Long__toOctalString == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__toOctalString, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toBinaryString = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toBinaryString(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toBinaryString, "toBinaryString",
-                     "(J)Ljava/lang/String;");
-  if (_m_Long__toBinaryString == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__toBinaryString, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toString2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toString2(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toString2, "toString",
-                     "(J)Ljava/lang/String;");
-  if (_m_Long__toString2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long, _m_Long__toString2, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__toUnsignedString1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toUnsignedString1(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__toUnsignedString1, "toUnsignedString",
-                     "(J)Ljava/lang/String;");
-  if (_m_Long__toUnsignedString1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__toUnsignedString1, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseLong = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseLong(jobject string, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseLong, "parseLong",
-                     "(Ljava/lang/String;I)J");
-  if (_m_Long__parseLong == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseLong, string, i);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseLong1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseLong1(jobject charSequence,
-                           int32_t i,
-                           int32_t i1,
-                           int32_t i2) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseLong1, "parseLong",
-                     "(Ljava/lang/CharSequence;III)J");
-  if (_m_Long__parseLong1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseLong1, charSequence, i, i1, i2);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseLong2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseLong2(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseLong2, "parseLong",
-                     "(Ljava/lang/String;)J");
-  if (_m_Long__parseLong2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseLong2, string);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseUnsignedLong = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseUnsignedLong(jobject string, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseUnsignedLong, "parseUnsignedLong",
-                     "(Ljava/lang/String;I)J");
-  if (_m_Long__parseUnsignedLong == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseUnsignedLong, string, i);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseUnsignedLong1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseUnsignedLong1(jobject charSequence,
-                                   int32_t i,
-                                   int32_t i1,
-                                   int32_t i2) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseUnsignedLong1, "parseUnsignedLong",
-                     "(Ljava/lang/CharSequence;III)J");
-  if (_m_Long__parseUnsignedLong1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseUnsignedLong1, charSequence, i, i1, i2);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__parseUnsignedLong2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__parseUnsignedLong2(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__parseUnsignedLong2, "parseUnsignedLong",
-                     "(Ljava/lang/String;)J");
-  if (_m_Long__parseUnsignedLong2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__parseUnsignedLong2, string);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__valueOf = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__valueOf(jobject string, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__valueOf, "valueOf",
-                     "(Ljava/lang/String;I)Ljava/lang/Long;");
-  if (_m_Long__valueOf == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__valueOf, string, i);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__valueOf1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__valueOf1(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__valueOf1, "valueOf",
-                     "(Ljava/lang/String;)Ljava/lang/Long;");
-  if (_m_Long__valueOf1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__valueOf1, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__valueOf2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__valueOf2(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__valueOf2, "valueOf",
-                     "(J)Ljava/lang/Long;");
-  if (_m_Long__valueOf2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long, _m_Long__valueOf2, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__decode = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__decode(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__decode, "decode",
-                     "(Ljava/lang/String;)Ljava/lang/Long;");
-  if (_m_Long__decode == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long,
-                                                      _m_Long__decode, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__byteValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__byteValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__byteValue, "byteValue", "()B");
-  if (_m_Long__byteValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int8_t _result = (*jniEnv)->CallByteMethod(jniEnv, self_, _m_Long__byteValue);
-  return (JniResult){.result = {.b = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__shortValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__shortValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__shortValue, "shortValue", "()S");
-  if (_m_Long__shortValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int16_t _result =
-      (*jniEnv)->CallShortMethod(jniEnv, self_, _m_Long__shortValue);
-  return (JniResult){.result = {.s = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__intValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__intValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__intValue, "intValue", "()I");
-  if (_m_Long__intValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Long__intValue);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__longValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__longValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__longValue, "longValue", "()J");
-  if (_m_Long__longValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result =
-      (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Long__longValue);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__floatValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__floatValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__floatValue, "floatValue", "()F");
-  if (_m_Long__floatValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  float _result =
-      (*jniEnv)->CallFloatMethod(jniEnv, self_, _m_Long__floatValue);
-  return (JniResult){.result = {.f = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__doubleValue = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__doubleValue(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__doubleValue, "doubleValue", "()D");
-  if (_m_Long__doubleValue == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  double _result =
-      (*jniEnv)->CallDoubleMethod(jniEnv, self_, _m_Long__doubleValue);
-  return (JniResult){.result = {.d = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__toString3 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__toString3(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__toString3, "toString", "()Ljava/lang/String;");
-  if (_m_Long__toString3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Long__toString3);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__hashCode1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__hashCode1(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__hashCode1, "hashCode", "()I");
-  if (_m_Long__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Long__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__hashCode2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__hashCode2(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__hashCode2, "hashCode", "(J)I");
-  if (_m_Long__hashCode2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Long, _m_Long__hashCode2, j);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__equals1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__equals1(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__equals1, "equals", "(Ljava/lang/Object;)Z");
-  if (_m_Long__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Long__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__getLong = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__getLong(jobject string) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__getLong, "getLong",
-                     "(Ljava/lang/String;)Ljava/lang/Long;");
-  if (_m_Long__getLong == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Long,
-                                                      _m_Long__getLong, string);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__getLong1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__getLong1(jobject string, int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__getLong1, "getLong",
-                     "(Ljava/lang/String;J)Ljava/lang/Long;");
-  if (_m_Long__getLong1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__getLong1, string, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__getLong2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__getLong2(jobject string, jobject long0) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__getLong2, "getLong",
-                     "(Ljava/lang/String;Ljava/lang/Long;)Ljava/lang/Long;");
-  if (_m_Long__getLong2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Long, _m_Long__getLong2, string, long0);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Long__compareTo = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__compareTo(jobject self_, jobject long0) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__compareTo, "compareTo", "(Ljava/lang/Long;)I");
-  if (_m_Long__compareTo == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Long__compareTo, long0);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__compare = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__compare(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__compare, "compare", "(JJ)I");
-  if (_m_Long__compare == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Long, _m_Long__compare, j, j1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__compareUnsigned = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__compareUnsigned(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__compareUnsigned, "compareUnsigned",
-                     "(JJ)I");
-  if (_m_Long__compareUnsigned == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallStaticIntMethod(
-      jniEnv, _c_Long, _m_Long__compareUnsigned, j, j1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__divideUnsigned = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__divideUnsigned(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__divideUnsigned, "divideUnsigned",
-                     "(JJ)J");
-  if (_m_Long__divideUnsigned == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__divideUnsigned, j, j1);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__remainderUnsigned = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__remainderUnsigned(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__remainderUnsigned, "remainderUnsigned",
-                     "(JJ)J");
-  if (_m_Long__remainderUnsigned == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(
-      jniEnv, _c_Long, _m_Long__remainderUnsigned, j, j1);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__highestOneBit = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__highestOneBit(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__highestOneBit, "highestOneBit", "(J)J");
-  if (_m_Long__highestOneBit == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long,
-                                                    _m_Long__highestOneBit, j);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__lowestOneBit = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__lowestOneBit(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__lowestOneBit, "lowestOneBit", "(J)J");
-  if (_m_Long__lowestOneBit == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long,
-                                                    _m_Long__lowestOneBit, j);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__numberOfLeadingZeros = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__numberOfLeadingZeros(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__numberOfLeadingZeros,
-                     "numberOfLeadingZeros", "(J)I");
-  if (_m_Long__numberOfLeadingZeros == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallStaticIntMethod(
-      jniEnv, _c_Long, _m_Long__numberOfLeadingZeros, j);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__numberOfTrailingZeros = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__numberOfTrailingZeros(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__numberOfTrailingZeros,
-                     "numberOfTrailingZeros", "(J)I");
-  if (_m_Long__numberOfTrailingZeros == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallStaticIntMethod(
-      jniEnv, _c_Long, _m_Long__numberOfTrailingZeros, j);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__bitCount = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__bitCount(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__bitCount, "bitCount", "(J)I");
-  if (_m_Long__bitCount == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Long, _m_Long__bitCount, j);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__rotateLeft = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__rotateLeft(int64_t j, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__rotateLeft, "rotateLeft", "(JI)J");
-  if (_m_Long__rotateLeft == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long,
-                                                    _m_Long__rotateLeft, j, i);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__rotateRight = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__rotateRight(int64_t j, int32_t i) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__rotateRight, "rotateRight", "(JI)J");
-  if (_m_Long__rotateRight == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long,
-                                                    _m_Long__rotateRight, j, i);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__reverse = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__reverse(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__reverse, "reverse", "(J)J");
-  if (_m_Long__reverse == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result =
-      (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long, _m_Long__reverse, j);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__signum = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__signum(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__signum, "signum", "(J)I");
-  if (_m_Long__signum == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Long, _m_Long__signum, j);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__reverseBytes = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__reverseBytes(int64_t j) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__reverseBytes, "reverseBytes", "(J)J");
-  if (_m_Long__reverseBytes == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result = (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long,
-                                                    _m_Long__reverseBytes, j);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__sum = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__sum(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__sum, "sum", "(JJ)J");
-  if (_m_Long__sum == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result =
-      (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long, _m_Long__sum, j, j1);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__max = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__max(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__max, "max", "(JJ)J");
-  if (_m_Long__max == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result =
-      (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long, _m_Long__max, j, j1);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__min = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__min(int64_t j, int64_t j1) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Long, &_m_Long__min, "min", "(JJ)J");
-  if (_m_Long__min == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int64_t _result =
-      (*jniEnv)->CallStaticLongMethod(jniEnv, _c_Long, _m_Long__min, j, j1);
-  return (JniResult){.result = {.j = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Long__compareTo1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Long__compareTo1(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Long, &_m_Long__compareTo1, "compareTo",
-              "(Ljava/lang/Object;)I");
-  if (_m_Long__compareTo1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result =
-      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Long__compareTo1, object);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jfieldID _f_Long__TYPE = NULL;
-FFI_PLUGIN_EXPORT
-JniResult get_Long__TYPE() {
-  load_env();
-  load_class_gr(&_c_Long, "java/lang/Long");
-  if (_c_Long == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_field(_c_Long, &_f_Long__TYPE, "TYPE", "Ljava/lang/Class;");
-  jobject _result = to_global_ref(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Long, _f_Long__TYPE));
-  return (JniResult){.result = {.l = _result}, .exception = check_exception()};
-}
-
-// java.util.Set
-jclass _c_Set = NULL;
-
-jmethodID _m_Set__size = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__size(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__size, "size", "()I");
-  if (_m_Set__size == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Set__size);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__isEmpty = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__isEmpty(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__isEmpty, "isEmpty", "()Z");
-  if (_m_Set__isEmpty == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__isEmpty);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__contains = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__contains(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__contains, "contains", "(Ljava/lang/Object;)Z");
-  if (_m_Set__contains == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__contains, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__iterator = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__iterator(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__iterator, "iterator", "()Ljava/util/Iterator;");
-  if (_m_Set__iterator == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Set__iterator);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__toArray = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__toArray(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__toArray, "toArray", "()[Ljava/lang/Object;");
-  if (_m_Set__toArray == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Set__toArray);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__toArray1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__toArray1(jobject self_, jobject objects) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__toArray1, "toArray",
-              "([Ljava/lang/Object;)[Ljava/lang/Object;");
-  if (_m_Set__toArray1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Set__toArray1, objects);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__add = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__add(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__add, "add", "(Ljava/lang/Object;)Z");
-  if (_m_Set__add == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__add, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__remove = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__remove(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__remove, "remove", "(Ljava/lang/Object;)Z");
-  if (_m_Set__remove == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__remove, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__containsAll = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__containsAll(jobject self_, jobject collection) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__containsAll, "containsAll",
-              "(Ljava/util/Collection;)Z");
-  if (_m_Set__containsAll == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result = (*jniEnv)->CallBooleanMethod(
-      jniEnv, self_, _m_Set__containsAll, collection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__addAll = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__addAll(jobject self_, jobject collection) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__addAll, "addAll", "(Ljava/util/Collection;)Z");
-  if (_m_Set__addAll == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__addAll, collection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__retainAll = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__retainAll(jobject self_, jobject collection) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__retainAll, "retainAll",
-              "(Ljava/util/Collection;)Z");
-  if (_m_Set__retainAll == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_,
-                                                 _m_Set__retainAll, collection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__removeAll = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__removeAll(jobject self_, jobject collection) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__removeAll, "removeAll",
-              "(Ljava/util/Collection;)Z");
-  if (_m_Set__removeAll == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_,
-                                                 _m_Set__removeAll, collection);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__clear = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__clear(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__clear, "clear", "()V");
-  if (_m_Set__clear == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_Set__clear);
-  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__equals1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__equals1(jobject self_, jobject object) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__equals1, "equals", "(Ljava/lang/Object;)Z");
-  if (_m_Set__equals1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  uint8_t _result =
-      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Set__equals1, object);
-  return (JniResult){.result = {.z = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__hashCode1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__hashCode1(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__hashCode1, "hashCode", "()I");
-  if (_m_Set__hashCode1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Set__hashCode1);
-  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
-}
-
-jmethodID _m_Set__spliterator = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__spliterator(jobject self_) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_method(_c_Set, &_m_Set__spliterator, "spliterator",
-              "()Ljava/util/Spliterator;");
-  if (_m_Set__spliterator == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Set__spliterator);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of() {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of, "of", "()Ljava/util/Set;");
-  if (_m_Set__of == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Set, _m_Set__of);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of1(jobject object) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of1, "of",
-                     "(Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of1 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Set, _m_Set__of1, object);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of2(jobject object, jobject object1) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of2, "of",
-                     "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of2 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of2, object, object1);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of3 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of3(jobject object, jobject object1, jobject object2) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of3, "of",
-                     "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-                     "Object;)Ljava/util/Set;");
-  if (_m_Set__of3 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of3, object, object1, object2);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of4 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of4(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of4, "of",
-                     "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-                     "Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of4 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of4, object, object1, object2, object3);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of5 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of5(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3,
-                   jobject object4) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_Set, &_m_Set__of5, "of",
-      "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of5 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of5, object, object1, object2, object3, object4);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of6 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of6(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3,
-                   jobject object4,
-                   jobject object5) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_Set, &_m_Set__of6, "of",
-      "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of6 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of6, object, object1, object2, object3, object4,
-      object5);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of7 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of7(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3,
-                   jobject object4,
-                   jobject object5,
-                   jobject object6) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of7, "of",
-                     "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-                     "Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-                     "Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of7 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of7, object, object1, object2, object3, object4,
-      object5, object6);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of8 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of8(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3,
-                   jobject object4,
-                   jobject object5,
-                   jobject object6,
-                   jobject object7) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_Set, &_m_Set__of8, "of",
-      "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;)Ljava/util/Set;");
-  if (_m_Set__of8 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of8, object, object1, object2, object3, object4,
-      object5, object6, object7);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of9 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of9(jobject object,
-                   jobject object1,
-                   jobject object2,
-                   jobject object3,
-                   jobject object4,
-                   jobject object5,
-                   jobject object6,
-                   jobject object7,
-                   jobject object8) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_Set, &_m_Set__of9, "of",
-      "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of9 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of9, object, object1, object2, object3, object4,
-      object5, object6, object7, object8);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of10 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of10(jobject object,
-                    jobject object1,
-                    jobject object2,
-                    jobject object3,
-                    jobject object4,
-                    jobject object5,
-                    jobject object6,
-                    jobject object7,
-                    jobject object8,
-                    jobject object9) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_Set, &_m_Set__of10, "of",
-      "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/"
-      "Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of10 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__of10, object, object1, object2, object3, object4,
-      object5, object6, object7, object8, object9);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__of11 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__of11(jobject objects) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__of11, "of",
-                     "([Ljava/lang/Object;)Ljava/util/Set;");
-  if (_m_Set__of11 == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Set, _m_Set__of11, objects);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
-}
-
-jmethodID _m_Set__copyOf = NULL;
-FFI_PLUGIN_EXPORT
-JniResult Set__copyOf(jobject collection) {
-  load_env();
-  load_class_gr(&_c_Set, "java/util/Set");
-  if (_c_Set == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_Set, &_m_Set__copyOf, "copyOf",
-                     "(Ljava/util/Collection;)Ljava/util/Set;");
-  if (_m_Set__copyOf == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_Set, _m_Set__copyOf, collection);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Instant, _f_Instant__MIN);
+  return to_global_ref_result(_result);
 }

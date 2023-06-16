@@ -25,6 +25,4 @@ classes:
   - 'androidx.health.connect.client.aggregate.AggregateMetric'
   - 'androidx.health.connect.client.records.StepsRecord'
   - 'java.time.Instant'
-  - 'java.lang.Long'
-  - 'java.util.Set'
 

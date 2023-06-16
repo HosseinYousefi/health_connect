@@ -60,18 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void _getSteps() async {
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
     final aggregateRequest = AggregateRequest(
-      Set.of1(
-        AggregateMetric.type(Long.type),
-        StepsRecord.COUNT_TOTAL,
-      ),
+      {StepsRecord.COUNT_TOTAL}.toJSet(AggregateMetric.type(JLong.type)),
       TimeRangeFilter.after(
         Instant.ofEpochMilli(yesterday.millisecondsSinceEpoch),
       ),
-      Set.of(JObject.type), // Empty set
+      JSet.hash(JObject.type), // Empty set
     );
     final result = await widget.client.aggregate(aggregateRequest);
     if (result.isNull) return;
-    final stepCount = result.get0(Long.type, StepsRecord.COUNT_TOTAL);
+    final stepCount = result.get0(StepsRecord.COUNT_TOTAL);
     if (stepCount.isNull) return;
     setState(() {
       _counter = stepCount.longValue();
